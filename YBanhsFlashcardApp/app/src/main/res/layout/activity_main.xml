@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#990000"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/flashcard_question"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="20sp"
+        android:gravity="center"
+        android:paddingHorizontal="50sp"
+        android:text="Who is the 44th President of the United States?"
+        android:textAlignment="center"
+        android:textColor="@color/beige"
+        android:textSize="25sp" />
+
+
+    <TextView
+        android:id="@+id/answer1"
+        android:layout_width="330sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/flashcard_question"
+        android:layout_centerInParent="true"
+        android:background="@drawable/answer_background"
+        android:padding="10dp"
+        android:text="Bill Clinton"
+        android:textAlignment="center"
+        android:textColor="@color/darkblue"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/flashcard_answer"
+        android:layout_width="330sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/answer1"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50sp"
+        android:background="@drawable/answer_background"
+        android:padding="10dp"
+        android:text="Barack Obama"
+        android:textAlignment="center"
+        android:textColor="@color/darkblue"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/answer2"
+        android:layout_width="330sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/flashcard_answer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50sp"
+        android:background="@drawable/answer_background"
+        android:padding="10dp"
+        android:text="Y Banh"
+        android:textAlignment="center"
+        android:textColor="@color/darkblue"
+        android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/add_icon"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_marginLeft="240dp"
+        android:layout_marginTop="500dp"
+        android:src="@drawable/ic_add"
+        app:tint="@color/beige" />
+
+    <ImageView
+        android:id="@+id/edit_icon"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="500dp"
+        android:src="@drawable/ic_edit"
+        app:tint="@color/beige" />
+
+    <ImageView
+        android:id="@+id/toggle_choices_visibility"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="500sp"
+        android:contentDescription="ShowAndHideAnswer"
+        android:src="@drawable/ic_eye"
+        app:tint="@color/beige" />
+
+    <ImageView
+        android:id="@+id/next_icon"
+        android:layout_width="25sp"
+        android:layout_height="25sp"
+        android:layout_marginLeft="330dp"
+        android:layout_marginTop="500dp"
+        android:src="@drawable/ic_next"
+        app:tint="@color/beige" />
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/answer3"-->
+    <!--        android:layout_width="330sp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@+id/answer2"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:layout_marginTop="30sp"-->
+    <!--        android:background="@drawable/answer_background"-->
+    <!--        android:padding="10dp"-->
+    <!--        android:text="Barack Obama"-->
+    <!--        android:textAlignment="center"-->
+    <!--        android:textColor="@color/darkblue"-->
+    <!--        android:textSize="15sp" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/answer4"-->
+    <!--        android:layout_width="330sp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@+id/answer3"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:layout_marginTop="30sp"-->
+    <!--        android:background="@drawable/answer_background"-->
+    <!--        android:padding="10dp"-->
+    <!--        android:text="Donald Trump"-->
+    <!--        android:textAlignment="center"-->
+    <!--        android:textColor="@color/darkblue"-->
+    <!--        android:textSize="15sp" />-->
+
+
+</RelativeLayout>

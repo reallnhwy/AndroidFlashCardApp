@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkred"
+    tools:context=".AddCardActivity">
+
+    <ImageView
+        android:id="@+id/cancel_button"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_marginLeft="330dp"
+        android:layout_marginTop="500dp"
+        android:src="@drawable/ic_cancel"
+        app:tint="@color/beige" />
+
+    <ImageView
+        android:id="@+id/save_button"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="500dp"
+        android:src="@drawable/ic_save"
+        app:tint="@color/beige" />
+
+    <EditText
+        android:id="@+id/question_box"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="@color/darkerbeige"
+        android:hint="Enter the question here"
+        android:textColor="@color/beige"
+        android:textColorHint="@color/darkerbeige"
+        android:textSize="20dp" />
+
+
+    <EditText
+        android:id="@+id/answer_box"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/question_box"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/darkerbeige"
+        android:hint="Enter the answer here"
+        android:textColor="@color/beige"
+        android:textColorHint="@color/darkerbeige"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/wronganswer1_box"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/answer_box"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/darkerbeige"
+        android:hint="Enter the wrong answer here"
+        android:textColor="@color/beige"
+        android:textColorHint="@color/darkerbeige"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/wronganswer2_box"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/wronganswer1_box"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/darkerbeige"
+        android:hint="Enter another wrong answer here"
+        android:textColor="@color/beige"
+        android:textColorHint="@color/darkerbeige"
+        android:textSize="20dp" />
+
+</RelativeLayout>
