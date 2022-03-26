@@ -66,7 +66,7 @@
         android:id="@+id/add_icon"
         android:layout_width="30sp"
         android:layout_height="30sp"
-        android:layout_marginLeft="240dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="500dp"
         android:src="@drawable/ic_add"
         app:tint="@color/beige" />
@@ -84,7 +84,7 @@
         android:id="@+id/toggle_choices_visibility"
         android:layout_width="30sp"
         android:layout_height="30sp"
-        android:layout_marginLeft="140dp"
+        android:layout_marginLeft="120dp"
         android:layout_marginTop="500sp"
         android:contentDescription="ShowAndHideAnswer"
         android:src="@drawable/ic_eye"
@@ -98,6 +98,29 @@
         android:layout_marginTop="500dp"
         android:src="@drawable/ic_next"
         app:tint="@color/beige" />
+
+    <ImageView
+        android:id="@+id/trash_icon"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_marginLeft="263dp"
+        android:layout_marginTop="500dp"
+        android:src="@drawable/ic_trash"
+        app:tint="@color/beige" />
+
+    <TextView
+        android:id="@+id/empty_state"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="170sp"
+        android:gravity="center"
+        android:paddingHorizontal="50sp"
+        android:text="There is no flashcard, please add another one by tap the add button!"
+        android:textAlignment="center"
+        android:textColor="@color/beige"
+        android:textSize="25sp"
+        android:visibility="invisible"/>
+
 
     <!--    <TextView-->
     <!--        android:id="@+id/answer3"-->

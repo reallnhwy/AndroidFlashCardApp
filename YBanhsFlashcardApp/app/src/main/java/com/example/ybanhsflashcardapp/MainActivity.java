@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,11 +23,19 @@ public class MainActivity extends AppCompatActivity {
     TextView flashcard_answer;
     TextView wronganswer1;
     TextView wronganswer2;
+    final int ADD_CARD_REQUEST_CODE = 100;
+    final int EDIT_CARD_REQUEST_CODE = 200;
 
+    Flashcard cardToEdit;
 
     FlashcardDatabase flashcardDatabase;
     List<Flashcard> allFlashcards;
     int currentCardDisplayedIndex = 0;
+
+    public int getRandomNumber(int minNumber, int maxNumber) {
+        Random rand = new Random();
+        return rand.nextInt((maxNumber - minNumber) + 1) + minNumber;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddCardActivity.class);
 //                MainActivity.this.startActivity(intent); //This is to only start the activity
-                startActivityForResult(intent, 100);
+                startActivityForResult(intent, ADD_CARD_REQUEST_CODE);
             }
         });
 
@@ -106,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("flashcard_answer", flashcard_answer.getText().toString());
                 intent.putExtra("wronganswer1", wronganswer1.getText().toString());
                 intent.putExtra("wronganswer2", wronganswer2.getText().toString());
-                startActivityForResult(intent, 100);
+                startActivityForResult(intent, EDIT_CARD_REQUEST_CODE);
             }
         });
 
@@ -151,7 +160,10 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 // advance our pointer index so we can show the next card
-                currentCardDisplayedIndex++;
+                currentCardDisplayedIndex = getRandomNumber(0,allFlashcards.size());
+//                if(getRandomNumber() == currentCardDisplayedIndex){
+//                    currentCardDisplayedIndex= getRandomNumber(0,allFlashcards.size());
+//                }
                 // make sure we don't get an IndexOutOfBoundsError if we are viewing the last indexed card in our list
                 if (currentCardDisplayedIndex >= allFlashcards.size()) {
                     Snackbar.make(view,
@@ -169,13 +181,67 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.trash_icon).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(allFlashcards == null || allFlashcards.size() == 0){
+                    return;
+                }
+                Flashcard currentCard = allFlashcards.get(currentCardDisplayedIndex);
+                flashcardDatabase.deleteCard(currentCard.getQuestion());
+                allFlashcards = flashcardDatabase.getAllCards();
+                if(currentCardDisplayedIndex>0){
+                    currentCardDisplayedIndex--;
+                }
+                if(allFlashcards == null || allFlashcards.size() == 0) {
+                    flashcard_question.setVisibility(View.INVISIBLE);
+                    flashcard_answer.setVisibility(View.INVISIBLE);
+                    wronganswer1.setVisibility(View.INVISIBLE);
+                    wronganswer2.setVisibility(View.INVISIBLE);
+                    findViewById(R.id.empty_state).setVisibility(View.VISIBLE);
+                } else {
+                    Flashcard previousCard = allFlashcards.get(currentCardDisplayedIndex);
+                    flashcard_answer.setText(previousCard.getAnswer());
+                    flashcard_question.setText(previousCard.getQuestion());
+                    wronganswer2.setText(previousCard.getWrongAnswer2());
+                    wronganswer1.setText(previousCard.getWrongAnswer1());
+                }
+            }
+        });
+
     }
 
     // This function is to receive data and do something with it
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == 100) {
+        if (resultCode == RESULT_OK && requestCode == ADD_CARD_REQUEST_CODE) {
+            if (data != null) {
+                //Get the data and convert it to String
+                String question = data.getExtras().getString("QUESTION_KEY");
+                String answer = data.getExtras().getString("ANSWER_KEY");
+                String WrongAnswer1 = data.getExtras().getString("WRONG_ANSWER1");
+                String WrongAnswer2 = data.getExtras().getString("WRONG_ANSWER2");
+
+                //Transform the Q&A data to an flashcard object/entity
+                flashcardDatabase.insertCard(new Flashcard(question, answer, WrongAnswer1, WrongAnswer2));
+
+                //Update the most recent flashcard list with all the object in the database
+                allFlashcards = flashcardDatabase.getAllCards();
+
+                //Change the TextView with the received Strings
+                flashcard_question.setText(question);
+                flashcard_answer.setText(answer);
+                wronganswer1.setText(WrongAnswer1);
+                wronganswer2.setText(WrongAnswer2);
+
+                flashcard_question.setVisibility(View.VISIBLE);
+                flashcard_answer.setVisibility(View.VISIBLE);
+                wronganswer1.setVisibility(View.VISIBLE);
+                wronganswer2.setVisibility(View.VISIBLE);
+                findViewById(R.id.empty_state).setVisibility(View.INVISIBLE);
+            }
+        } else if(resultCode == RESULT_OK && requestCode == EDIT_CARD_REQUEST_CODE){
             if (data != null) {
                 //Get the data and convert it to String
                 String question = data.getExtras().getString("QUESTION_KEY");
@@ -189,12 +255,15 @@ public class MainActivity extends AppCompatActivity {
                 wronganswer1.setText(WrongAnswer1);
                 wronganswer2.setText(WrongAnswer2);
 
-                //Transform the Q&A data to an flashcard object/entity
-                flashcardDatabase.insertCard(new Flashcard(question, answer, WrongAnswer1, WrongAnswer2));
+                cardToEdit = allFlashcards.get(currentCardDisplayedIndex);
 
-                //Update the most recent flashcard list with all the object in the database
+                cardToEdit.setQuestion(question);
+                cardToEdit.setAnswer(answer);
+                cardToEdit.setWrongAnswer1(WrongAnswer1);
+                cardToEdit.setWrongAnswer2(WrongAnswer2);
+
+                flashcardDatabase.updateCard(cardToEdit);
                 allFlashcards = flashcardDatabase.getAllCards();
-
             }
         }
         Snackbar.make(findViewById(R.id.flashcard_question),
