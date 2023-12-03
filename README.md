@@ -1,4 +1,4 @@
-## Lab 3
+## Flashcard App developed by Java using Android Studio
 
 ### App Description
 Flashcard app with saving data
